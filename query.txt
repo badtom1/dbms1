@@ -1,0 +1,11 @@
+ SELECT m.Name, s.title , a.Album_ID from MUSICIAN m , SONG s, ALBUM a,PERFORMED p where m.SSN=p.SSN and p.Song_ID=s.Song_ID and s.Album_ID=a.Album_ID;
+ 
+ select m.* from MUSICIAN m where m.SSN not in (select a.SSN from ALBUM a);
+ 
+ select s.* from SONG s where s.Song_ID in(select p.Song_ID from PERFORMED p group by(p.Song_ID) having count(p.Song_ID)>3);
+ 
+ select Name,(select count(SSN) from PLAY where Instrument_ID=i.Instrument_ID group by Instrument_ID ) as no_of_musicians from INSTRUMENT i;
+ 
+ select distinct(a.Title) , no_song from ALBUM  a,PLAY p , INSTRUMENT i, MUSICIAN m where no_song >(select avg(no_song) from ALBUM ) and p.SSN=m.SSN and p.Instrument_ID=i.Instrument_ID and p.SSN in (select SSN from ALBUM where i.Name in('flute','guitar'));
+ 
+ 
